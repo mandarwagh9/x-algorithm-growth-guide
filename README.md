@@ -39,7 +39,27 @@ Download the latest `.skill` file from [Releases](https://github.com/mandarwagh9
 cp x-algorithm-growth-guide.skill ~/.claude/skills/
 ```
 
-### Option 3: Reference in AGENTS.md
+### Option 3: Load remotely (zero install)
+
+Load directly from GitHub without downloading anything:
+```
+/skill https://raw.githubusercontent.com/mandarwagh9/x-algorithm-growth-guide/main/SKILL.md
+```
+
+### Option 4: Paste this prompt into any AI agent
+
+Copy and paste this into a new chat — the agent will download, install, and verify the skill automatically:
+
+````
+I want to use the x-algorithm-growth-guide skill for getting evidence-based X/Twitter algorithm advice. Please:
+
+1. Download the SKILL.md from https://raw.githubusercontent.com/mandarwagh9/x-algorithm-growth-guide/main/SKILL.md and save it to ~/.claude/skills/x-algorithm-growth-guide/SKILL.md (create the directory if needed)
+2. If I have an AGENTS.md or CLAUDE.md in my current project, add a reference to the skill
+3. Verify it works by loading the skill and answering: "What does the X algorithm weight more — likes or replies? Cite the source file and line number."
+```
+````
+
+### Option 5: Reference in AGENTS.md
 
 ```markdown
 ## Skills
