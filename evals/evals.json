@@ -1,0 +1,48 @@
+{
+  "skill_name": "x-algorithm-growth-guide",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm a creator trying to grow on X. I post about AI tools and coding tutorials. My posts get maybe 50-100 impressions and I'm stuck. What am I doing wrong based on how the X algorithm actually works? Give me specific, actionable advice backed by how the algorithm code works.",
+      "expected_output": "Practical growth advice based on the X algorithm's scoring weights, filter pipeline, and engagement signals. Should mention like weight (1.0x), reply weight (0.5x), dwell time, author diversity penalty, OON factor, etc.",
+      "expectations": [
+        "Mentions that likes have 1.0x weight (the highest signal)",
+        "Mentions reply weight (0.5x) being higher than retweet weight (0.3x)",
+        "Explains author diversity penalty and that quality > frequency",
+        "Explains out-of-network (OON) penalty for non-followers",
+        "Mentions dwell time as a scoring signal relative to the algorithm code",
+        "Advises against negative signals like 'not interested'",
+        "Sources claims back to specific code components (e.g., scoring weights from run_pipeline.py, filters from home-mixer/filters/)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I run social media for a tech startup. We're trying to understand why some of our X posts blow up while others get nothing. Can you explain the X For You feed algorithm in detail — specifically how content gets scored and ranked — and tell us what we should optimize for? I want the technical details.",
+      "expected_output": "Technical explanation of the ranking pipeline with scoring weights, the two-stage retrieval+ranking system, candidate source types, and concrete optimization targets. Should reference Phoenix transformer, Thunder in-network, and the full pipeline stages.",
+      "expectations": [
+        "Explains the two-stage pipeline: retrieval + ranking",
+        "Lists scoring weights or mentions specific action weights",
+        "Explains in-network (Thunder) vs out-of-network (Phoenix Retrieval) sources",
+        "Mentions the Phoenix Grok-based transformer in ranking",
+        "Discusses filters that remove content (age, seen, muted, blocked)",
+        "References author diversity mechanism",
+        "Mentions dwell time as an engagement signal",
+        "Explains candidate isolation masking in the transformer"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I keep hearing conflicting advice about the X algorithm. Some say post 5 times a day, others say once. Some say replies matter most, others say likes. Can you settle these debates using the actual open-source code from github.com/xai-org/x-algorithm? What does the code actually say about posting frequency, engagement signals, and how to get more reach?",
+      "expected_output": "Evidence-backed resolution of common debates about X algorithm optimization. Should debunk myths using code evidence and provide clear, weighted priorities based on the actual algorithm.",
+      "expectations": [
+        "Addresses the posting frequency debate using author diversity penalty evidence",
+        "Compares like vs reply vs retweet weights using actual numbers from code",
+        "Explains that the age filter removes old posts entirely",
+        "Mentions the OON penalty for non-followed content",
+        "Discusses negative signals (not interested, block, mute, report)",
+        "References specific code files as evidence",
+        "Addresses dwell time importance"
+      ]
+    }
+  ]
+}
