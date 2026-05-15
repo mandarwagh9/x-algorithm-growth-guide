@@ -1,0 +1,49 @@
+name: Package and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Create dist directory
+        run: mkdir -p dist
+      - name: Install dependencies and run packager
+        run: |
+          python -m pip install --upgrade pip
+          # The package.py script imports from ../skill-creator which won't exist in CI.
+          # Instead, we inline the packaging logic here.
+          python -c "
+import zipfile, os
+skill_dir = '.'
+dist_dir = 'dist'
+os.makedirs(dist_dir, exist_ok=True)
+exclude_dirs = {'__pycache__', 'node_modules', '.git', 'dist'}
+exclude_globs = {'*.pyc'}
+exclude_files = {'.DS_Store'}
+skill_file = os.path.join(dist_dir, 'x-algorithm-growth-guide.skill')
+with zipfile.ZipFile(skill_file, 'w', zipfile.ZIP_DEFLATED) as z:
+    for root, dirs, files in os.walk(skill_dir):
+        dirs[:] = [d for d in dirs if d not in exclude_dirs}
+        for f in files:
+            if f in exclude_files:
+                continue
+            if any(f.endswith(g[1:]) for g in exclude_globs):
+                continue
+            filepath = os.path.join(root, f)
+            arcname = os.path.relpath(filepath, os.path.dirname(skill_dir))
+            z.write(filepath, arcname)
+print(f'Created: {skill_file}')
+"
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/x-algorithm-growth-guide.skill
+          generate_release_notes: true
